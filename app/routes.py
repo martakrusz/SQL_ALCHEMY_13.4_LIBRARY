@@ -33,10 +33,10 @@ def delete_book():
         services.delete_book(book_title)
     return redirect(url_for('show_library'))
 
-@app.route("/<int:id>", methods=["GET", "POST"])
+@app.route("/<int:title_id>", methods=["GET", "POST"])
 def one_book():
-    book = request.args.get('book_title')
+    book_title = request.args.get('book_title')
     if request.method == "POST":
         book_title = request.args.get('book_title')
-        services.delete_book(book_title)
-    return redirect(url_for('show_library'))
+        services.load(book_title)
+    return render_template('book_details.html')
