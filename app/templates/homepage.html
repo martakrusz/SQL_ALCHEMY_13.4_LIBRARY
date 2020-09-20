@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <h2> Little Miss Books </h2>
-        <p>
+        <p> Aby dodać kilku autorów, wpisz ich po przecinku
 
 
         </p>
@@ -12,6 +12,7 @@
             <th>Authors</th>
             <th>Borrowed Date</th>
             <th>Check Borrow</th>
+            <th>Check Return</th>
             <th>Delete book</th>
         </thead>
     {% for book in books %}
@@ -21,6 +22,9 @@
             <td>{{ book.borrowed_date }}</td>
             <form method="POST" action="{{ url_for('borrow_book', book_title= book.title) }}">
                 <td><input type="submit" value="Borrow" name="btn" class="btn btn-primary" ></td>
+            </form>
+            <form method="POST" action="{{ url_for('return_book', book_title= book.title) }}">
+                <td><input type="submit" value="Return" name="btn" class="btn btn-primary" ></td>
             </form>
             <form method="POST" action="{{ url_for('delete_book', book_title = book.title) }}">
                 <td><input type="submit" value="Delete" name="btn" class="btn btn-primary" ></td>

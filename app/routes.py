@@ -25,6 +25,13 @@ def borrow_book():
         services.borrow_book(book_title)
     return redirect(url_for('show_library'))
 
+@app.route("/return", methods=["GET", "POST"])
+def return_book():
+    if request.method == "POST":
+        book_title = request.args.get('book_title')
+        services.return_book(book_title)
+    return redirect(url_for('show_library'))
+
 
 @app.route("/delete", methods=["GET", "POST"])
 def delete_book():

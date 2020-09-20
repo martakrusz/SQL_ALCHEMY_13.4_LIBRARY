@@ -24,6 +24,13 @@ def borrow_book(book_title):
     db.session.add(borrowed)
     db.session.commit()
 
+def return_book(book_title):
+    book = models.Title.query.filter_by(title=book_title).first()
+    borrowed = models.Borrowed(book = book)
+    if borrowed is not None:
+        db.session.delete(borrowed)
+    db.session.commit()
+
 def delete_book(book_title):
     book = models.Title.query.filter_by(title=book_title).first()
     borrowed = models.Borrowed.query.filter_by(book_id=book.title_id).first()
@@ -42,7 +49,7 @@ def load():
         all_authors = []
         for author in title.authors:
             all_authors.append(author.author)
-        authors = ", ".join(all_authors)
+        authors = ",".join(all_authors)
         temp_book['authors'] = authors
 
         borrowed = models.Borrowed.query.filter_by(book_id=title.title_id).first()
@@ -51,5 +58,6 @@ def load():
         else:
             temp_book['borrowed_date'] = ""
         books_list.append(temp_book)
+
  
     return books_list
